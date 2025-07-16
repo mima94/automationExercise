@@ -179,3 +179,14 @@ test ('Add product in cart', async ({page}) => {
     await page.locator('.overlay-content [data-product-id="1"]').click();
     await expect(page.locator('#cartModal > div > div > div.modal-body > p:nth-child(2) > a')).toBeVisible();
 });
+
+test ('Verify product quantity in cart', async ({page}) => {
+    const homepage = new Homepage(page);
+    const products = new ProductsPage (page);
+    await homepage.productsButton.click();
+    await products.viewProduct1.click();
+    await page.locator('#quantity').fill('4');
+    await page.getByText('Add to cart').click();
+    await page.getByText('View Cart').click();
+    await expect(page.locator('#product-1 .cart_quantity button')).toHaveText('4');
+});
