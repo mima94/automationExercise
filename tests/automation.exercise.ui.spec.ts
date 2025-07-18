@@ -182,11 +182,66 @@ test ('Add product in cart', async ({page}) => {
 
 test ('Verify product quantity in cart', async ({page}) => {
     const homepage = new Homepage(page);
-    const products = new ProductsPage (page);
+    const productspage = new ProductsPage (page);
     await homepage.productsButton.click();
-    await products.viewProduct1.click();
+    await productspage.viewProduct1.click();
     await page.locator('#quantity').fill('4');
     await page.getByText('Add to cart').click();
     await page.getByText('View Cart').click();
     await expect(page.locator('#product-1 .cart_quantity button')).toHaveText('4');
+});
+
+test ('Place order: Register while checkout', async ({page}) => {
+    const homepage = new Homepage(page);
+    const cartpage = new CartPage(page);
+    const productspage = new ProductsPage(page);
+    const loginpage = new Loginpage(page);
+    const signuppage = new SignupPage(page);
+    const accountCreatedPage = new AccountCreatedPage(page);
+    await homepage.productsButton.click();
+    await productspage.fistProduct.hover();
+    await page.locator('.overlay-content [data-product-id="1"]').click();
+    await page.getByText('View Cart').click();
+    await expect(page).toHaveURL('https://automationexercise.com/view_cart');
+    await cartpage.proceedButton.click();
+    await page. getByRole('link',{name:'Register / Login'}).click();
+    await loginpage.namePlaceholder.fill('xxl6');
+    await loginpage.emailForSignupPlaceholder.fill('xxx26@gmail.com');
+    await loginpage.signupButton.click();
+    await signuppage.mrsButton.check();
+    await signuppage.passwordPlaceholder.fill('testpassword');
+    await page.selectOption('#days', '15');
+    await page.selectOption('#months', 'May');
+    await page.selectOption('#years', '1994');
+    await signuppage.newsletter.check();
+    await signuppage.specialOffers.check();
+    await signuppage.firstNamePlaceholder.fill('Mima2');
+    await signuppage.lastNamePlaceholder.fill('Doe2');
+    await signuppage.companyPlaceholder.fill('test company2');
+    await signuppage.addressPlaceholder.fill('put2');
+    await signuppage.address2Placeholder.fill('put23');
+    await page.selectOption('#country', "Australia");
+    await signuppage.statePlaceholder.fill('Srbija');
+    await signuppage.cityPlaceholder.fill('Zrenjanin');
+    await signuppage.zipcodePlaceholder.fill('23000');
+    await signuppage.mobileNumberPlaceholder.fill('0612345678');
+    await signuppage.createAccountButton.click();
+    await expect(page.getByText('Account Created!')).toBeVisible();
+    await accountCreatedPage.continueButton.click();
+    await expect (page.getByText(' Logged in as ')).toBeVisible();
+    await homepage.cartButton.click();
+    await cartpage.proceedButton.click();
+    await expect(page.getByText('Your delivery address')).toBeVisible();
+    await page.locator('[name="message"]').fill('hfwueifhsjhkfb');
+    await page.getByText('Place Order').click();
+    await page.locator('[name="name_on_card"]').fill('jhsadgfr');
+    await page.locator('[name="card_number"]').fill('4536373');
+    await page.locator('[name="cvc"]').fill('322');
+    await page.locator('[name="expiry_month"]').fill('06');
+    await page.locator('[name="expiry_year"]').fill('29');
+    await page.locator('#submit').click();
+    await page.getByText('Your order has been placed successfully!').isVisible();
+    await homepage.deleteAccountButton.click();
+    await expect (page.getByText('Account Deleted!')).toBeVisible();
+
 });
