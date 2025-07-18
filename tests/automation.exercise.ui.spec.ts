@@ -299,3 +299,33 @@ test ('Place order: Register before checkout', async ({page}) => {
     await homepage.deleteAccountButton.click();
     await expect (page.getByText('Account Deleted!')).toBeVisible();
 });
+
+test ('Place order: Login before checkout', async ({page}) => {
+    const homepage = new Homepage(page);
+    const loginpage = new Loginpage(page);
+    const productspage = new ProductsPage(page);
+    const paymentpage = new Paymentpage(page);
+    const cartpage = new CartPage(page);
+    await homepage.signupLoginButton.click();
+    await expect(page.getByText('Login to your account')).toBeVisible(); 
+    await loginpage.emailForLoginPlaceholder.fill('aladin@gmail.com');
+    await loginpage.passwordPlaceholder.fill('lampa');
+    await loginpage.loginButton.click();
+    await expect(page.getByText('Logged in as Aladin')).toBeVisible();
+    await productspage.fistProduct.hover();
+    await page.locator('.overlay-content [data-product-id="1"]').click();
+    await page.getByText('View Cart').click();
+    await expect(page).toHaveURL('https://automationexercise.com/view_cart');
+    await cartpage.proceedButton.click();
+    await page.locator('[name="message"]').fill('hfwueifhsjhkfb');
+    await page.getByText('Place Order').click();
+    await paymentpage.cardname.fill('jhsadgfr');
+    await paymentpage.cardnumber.fill('4536373');
+    await paymentpage.cvc.fill('322');
+    await paymentpage.expirymonth.fill('06');
+    await paymentpage.expiryYear.fill('29');
+    await paymentpage.submitPayment.click();
+    await page.getByText('Your order has been placed successfully!').isVisible();
+    await homepage.deleteAccountButton.click();
+    await expect (page.getByText('Account Deleted!')).toBeVisible(); 
+});
