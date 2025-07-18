@@ -7,6 +7,7 @@ import { ContastUs } from '../pages/contact.us';
 import path from 'path';
 import { ProductsPage } from '../pages/products.page';
 import { CartPage } from '../pages/cartpage';
+import { Paymentpage } from '../pages/paymentpage';
 
 //navigate to the page
 test.beforeEach ("Navigating to the page", async ({page}) => {
@@ -198,6 +199,7 @@ test ('Place order: Register while checkout', async ({page}) => {
     const loginpage = new Loginpage(page);
     const signuppage = new SignupPage(page);
     const accountCreatedPage = new AccountCreatedPage(page);
+    const paymentpage = new Paymentpage(page);
     await homepage.productsButton.click();
     await productspage.fistProduct.hover();
     await page.locator('.overlay-content [data-product-id="1"]').click();
@@ -234,14 +236,15 @@ test ('Place order: Register while checkout', async ({page}) => {
     await expect(page.getByText('Your delivery address')).toBeVisible();
     await page.locator('[name="message"]').fill('hfwueifhsjhkfb');
     await page.getByText('Place Order').click();
-    await page.locator('[name="name_on_card"]').fill('jhsadgfr');
-    await page.locator('[name="card_number"]').fill('4536373');
-    await page.locator('[name="cvc"]').fill('322');
-    await page.locator('[name="expiry_month"]').fill('06');
-    await page.locator('[name="expiry_year"]').fill('29');
-    await page.locator('#submit').click();
+    await paymentpage.cardname.fill('jhsadgfr');
+    await paymentpage.cardnumber.fill('4536373');
+    await paymentpage.cvc.fill('322');
+    await paymentpage.expirymonth.fill('06');
+    await paymentpage.expiryYear.fill('29');
+    await paymentpage.submitPayment.click();
     await page.getByText('Your order has been placed successfully!').isVisible();
     await homepage.deleteAccountButton.click();
     await expect (page.getByText('Account Deleted!')).toBeVisible();
 
 });
+
