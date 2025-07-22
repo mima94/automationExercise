@@ -350,4 +350,8 @@ test ('View category products', async ({page}) => {
     await page.getByRole('link',{name:'Dress'}).click();
     await expect(page).toHaveURL('https://automationexercise.com/category_products/1');
     await expect(page.getByText('Women - Dress Products')).toBeVisible();
+    await page.locator('[href="#Men"]').click();
+    await page.getByRole('link',{name:'Tshirts'}).click();
+    await expect(page).toHaveURL('https://automationexercise.com/category_products/3');
 });
+
