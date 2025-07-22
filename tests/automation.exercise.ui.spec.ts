@@ -355,3 +355,12 @@ test ('View category products', async ({page}) => {
     await expect(page).toHaveURL('https://automationexercise.com/category_products/3');
 });
 
+test ('view & cart brand products  ', async ({page}) => {
+    const homepage = new Homepage(page);
+    await homepage.productsButton.click();
+    await expect(homepage.brandsHeading).toBeVisible();
+    await homepage.brandPolo.click();
+    await expect(page.getByText('Brand - Polo Products')).toBeVisible();
+    await homepage.brandHM.click();
+    await expect(page.getByText('Brand - H&M Products')).toBeVisible();
+});

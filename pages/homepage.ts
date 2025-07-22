@@ -12,6 +12,9 @@ export class Homepage {
     readonly cartButton: Locator;
     readonly categoryHeading: Locator;
     readonly categorySection: Locator;
+    readonly brandsHeading: Locator;
+    readonly brandPolo: Locator;
+    readonly brandHM: Locator;
 
 
 //Locators
@@ -28,4 +31,7 @@ constructor (page: Page){
     this.cartButton = page.getByRole('link',{ name:' Cart'});
     this.categoryHeading = page.getByText('Category');
     this.categorySection = page.locator('[class="panel-group category-products"]');
+    this.brandsHeading = page.getByText('Brands');
+    this.brandPolo = page.locator('[href="/brand_products/Polo"]');
+    this.brandHM = page.locator('[href="/brand_products/H&M"]');
 }};
