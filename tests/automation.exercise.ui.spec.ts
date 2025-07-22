@@ -341,3 +341,13 @@ test ('Remove products from cart', async ({page}) => {
     await page.locator('[class="cart_quantity_delete"]').click();
     await page.getByText('Cart is empty!').isVisible();
 });
+
+test ('View category products', async ({page}) => {
+    const homepage = new Homepage(page);
+    await homepage.categoryHeading.isVisible();
+    await homepage.categorySection.isVisible();
+    await page.locator('[href="#Women"]').click();
+    await page.getByRole('link',{name:'Dress'}).click();
+    await expect(page).toHaveURL('https://automationexercise.com/category_products/1');
+    await expect(page.getByText('Women - Dress Products')).toBeVisible();
+});

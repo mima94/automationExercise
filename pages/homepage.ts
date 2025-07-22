@@ -10,6 +10,8 @@ export class Homepage {
     readonly subscribeEmailPlaceholder: Locator;
     readonly submitSubscriptionButton: Locator;
     readonly cartButton: Locator;
+    readonly categoryHeading: Locator;
+    readonly categorySection: Locator;
 
 
 //Locators
@@ -24,5 +26,6 @@ constructor (page: Page){
     this.subscribeEmailPlaceholder = page.locator('#susbscribe_email');
     this.submitSubscriptionButton = page.locator('#subscribe');
     this.cartButton = page.getByRole('link',{ name:' Cart'});
-
+    this.categoryHeading = page.getByText('Category');
+    this.categorySection = page.locator('[class="panel-group category-products"]');
 }};
