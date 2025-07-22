@@ -387,3 +387,18 @@ test ('search products and verify cart after login', async ({page}) => {
     await homepage.cartButton.click();
     await expect(page.getByText('Winter Top')).toBeVisible();
 });
+
+test ('add review on product', async ({page}) => {
+    const homepage = new Homepage(page);
+    const products = new ProductsPage(page);
+    await homepage.productsButton.click();
+    await expect(page).toHaveURL('https://automationexercise.com/products');
+    await expect(page.getByText('All Products')).toBeVisible();
+    await products.viewProduct1.click();
+    await page.getByText('Write Your Review').isVisible();
+    await page.locator('#name').fill('Aladin');
+    await page.locator('#email').fill('aladin@gmail.com');
+    await page.locator('[placeholder="Add Review Here!"]').fill('uyrghuiwyerghwoiueyhweiurghiw');
+    await page.locator('[id="button-review"]').click();
+    await page.getByText('Thank you for your review.').isVisible();
+});
