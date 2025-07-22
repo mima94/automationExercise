@@ -329,3 +329,15 @@ test ('Place order: Login before checkout', async ({page}) => {
     await homepage.deleteAccountButton.click();
     await expect (page.getByText('Account Deleted!')).toBeVisible(); 
 });
+
+test ('Remove products from cart', async ({page}) => {
+    const homepage = new Homepage(page);
+    const productspage = new ProductsPage(page);
+    await homepage.productsButton.click();
+    await productspage.fistProduct.hover();
+    await page.locator('.overlay-content [data-product-id="1"]').click();
+    await page.getByText('View Cart').click();
+    await expect(page).toHaveURL('https://automationexercise.com/view_cart');
+    await page.locator('[class="cart_quantity_delete"]').click();
+    await page.getByText('Cart is empty!').isVisible();
+});
