@@ -355,7 +355,7 @@ test ('View category products', async ({page}) => {
     await expect(page).toHaveURL('https://automationexercise.com/category_products/3');
 });
 
-test ('view & cart brand products  ', async ({page}) => {
+test ('view & cart brand products', async ({page}) => {
     const homepage = new Homepage(page);
     await homepage.productsButton.click();
     await expect(homepage.brandsHeading).toBeVisible();
@@ -363,4 +363,27 @@ test ('view & cart brand products  ', async ({page}) => {
     await expect(page.getByText('Brand - Polo Products')).toBeVisible();
     await homepage.brandHM.click();
     await expect(page.getByText('Brand - H&M Products')).toBeVisible();
+});
+
+test ('search products and verify cart after login', async ({page}) => {
+    const homepage = new Homepage(page);
+    const products = new ProductsPage(page);
+    const loginpage = new Loginpage(page);
+    await homepage.productsButton.click();
+    await expect(page).toHaveURL('https://automationexercise.com/products');
+    await expect(page.getByText('All Products')).toBeVisible();
+    await products.searchPlaceholder.fill('Winter Top');
+    await products.searchButton.click();
+    await expect(page.getByText('Searched Products')).toBeVisible();
+    await expect(page.getByText('Winter Top').first()).toBeVisible();
+    await page.getByText('Add to cart').first().click();
+    await page.getByText('View Cart').click();
+    await expect(page.getByText('Winter Top')).toBeVisible();
+    await homepage.signupLoginButton.click();
+    await loginpage.emailForLoginPlaceholder.fill('aladin@gmail.com');
+    await loginpage.passwordPlaceholder.fill('lampa');
+    await loginpage.loginButton.click();
+    await expect(page.getByText('Logged in as Aladin')).toBeVisible();
+    await homepage.cartButton.click();
+    await expect(page.getByText('Winter Top')).toBeVisible();
 });
