@@ -15,7 +15,7 @@ export class Homepage {
     readonly brandsHeading: Locator;
     readonly brandPolo: Locator;
     readonly brandHM: Locator;
-
+    readonly recomenderItems: Locator;
 
 //Locators
 constructor (page: Page){
@@ -34,4 +34,5 @@ constructor (page: Page){
     this.brandsHeading = page.getByText('Brands');
     this.brandPolo = page.locator('[href="/brand_products/Polo"]');
     this.brandHM = page.locator('[href="/brand_products/H&M"]');
+    this.recomenderItems = page.getByText('recommended items');
 }};

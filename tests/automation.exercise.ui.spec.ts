@@ -402,3 +402,12 @@ test ('add review on product', async ({page}) => {
     await page.locator('[id="button-review"]').click();
     await page.getByText('Thank you for your review.').isVisible();
 });
+
+test ('add to cart from recommended items', async ({page}) => {
+    const homepage = new Homepage(page);
+    await homepage.recomenderItems.scrollIntoViewIfNeeded();
+    await page.locator('#recommended-item-carousel .carousel-inner .item .col-sm-4 .add-to-cart').first().click();
+    await page.getByText('View Cart').click();
+    await expect(page.locator('#product-1')).toBeVisible();
+    await expect(page.locator('.cart_description')).toContainText('Women > Tops');
+});
