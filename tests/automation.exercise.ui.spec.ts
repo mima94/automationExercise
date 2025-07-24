@@ -57,10 +57,10 @@ test ('Login user with correct email and password', async ({page}) => {
     const loginpage = new Loginpage(page);
     await homepage.signupLoginButton.click();
     await expect(page.getByText('Login to your account')).toBeVisible(); 
-    await loginpage.emailForLoginPlaceholder.fill('aladin@gmail.com');
+    await loginpage.emailForLoginPlaceholder.fill('aladinprimer@gmail.com');
     await loginpage.passwordPlaceholder.fill('lampa');
     await loginpage.loginButton.click();
-    await expect(page.getByText('Logged in as Aladin')).toBeVisible();
+    await expect(page.getByText('Logged in as Aladinprimer')).toBeVisible();
     //await homepage.deleteAccountButton.click();
     //await expect (page.getByText('Account Deleted!')).toBeVisible();  //zakomentarisano da ne bi obrisao account svaki put
 });
@@ -81,10 +81,10 @@ test ('Logout user', async ({page}) => {
     const loginpage = new Loginpage(page);
     await homepage.signupLoginButton.click();
     await expect(page.getByText('Login to your account')).toBeVisible(); 
-    await loginpage.emailForLoginPlaceholder.fill('aladin@gmail.com');
+    await loginpage.emailForLoginPlaceholder.fill('aladinprimer@gmail.com');
     await loginpage.passwordPlaceholder.fill('lampa');
     await loginpage.loginButton.click();
-    await expect(page.getByText('Logged in as Aladin')).toBeVisible();
+    await expect(page.getByText('Logged in as Aladinprimer')).toBeVisible();
     await loginpage.logoutButton.click();
     await expect(page).toHaveURL('https://automationexercise.com/login');
 });
@@ -94,8 +94,8 @@ test ('Register user with existing email', async ({page}) => {
     const loginpage = new Loginpage(page);
     await homepage.signupLoginButton.click();
     await expect(page.locator('#form > div > div > div:nth-child(3) > div > h2')).toHaveText('New User Signup!');
-    await loginpage.namePlaceholder.fill('Aladin');
-    await loginpage.emailForSignupPlaceholder.fill('aladin@gmail.com');
+    await loginpage.namePlaceholder.fill('Aladinprimer');
+    await loginpage.emailForSignupPlaceholder.fill('aladinprimer@gmail.com');
     await loginpage.signupButton.click();
     await expect(page.getByText('Email Address already exist!')).toBeVisible();
 });
@@ -105,8 +105,8 @@ test ('Contact us form', async ({page}) => {
     const contacpage = new ContastUs (page);
     await homepage.contuctUsButton.click();
     await expect(page.getByText('Get In Touch')).toBeVisible();
-    await contacpage.namePlaceholder.fill('Aladin');
-    await contacpage.emailPlaceholder.fill('aladin@gmail.com');
+    await contacpage.namePlaceholder.fill('Aladinprimer');
+    await contacpage.emailPlaceholder.fill('aladinprimer@gmail.com');
     await contacpage.subjectPlaceholder.fill('problem225');
     await contacpage.messagePlaceholder.fill('message225');
     const filePath = path.join(__dirname, 'test-data', 'DUMMY PDF.pdf');
@@ -307,10 +307,10 @@ test ('Place order: Login before checkout', async ({page}) => {
     const cartpage = new CartPage(page);
     await homepage.signupLoginButton.click();
     await expect(page.getByText('Login to your account')).toBeVisible(); 
-    await loginpage.emailForLoginPlaceholder.fill('aladin@gmail.com');
+    await loginpage.emailForLoginPlaceholder.fill('aladinprimer@gmail.com');
     await loginpage.passwordPlaceholder.fill('lampa');
     await loginpage.loginButton.click();
-    await expect(page.getByText('Logged in as Aladin')).toBeVisible();
+    await expect(page.getByText('Logged in as Aladinprimer')).toBeVisible();
     await productspage.fistProduct.hover();
     await page.locator('.overlay-content [data-product-id="1"]').click();
     await page.getByText('View Cart').click();
@@ -325,8 +325,8 @@ test ('Place order: Login before checkout', async ({page}) => {
     await paymentpage.expiryYear.fill('29');
     await paymentpage.submitPayment.click();
     await page.getByText('Your order has been placed successfully!').isVisible();
-    await homepage.deleteAccountButton.click();
-    await expect (page.getByText('Account Deleted!')).toBeVisible(); 
+    //await homepage.deleteAccountButton.click();
+    //await expect (page.getByText('Account Deleted!')).toBeVisible(); zakomentarisano da ne bi brisao svaki put account
 });
 
 test ('Remove products from cart', async ({page}) => {
@@ -420,8 +420,8 @@ test ('verify address details in checkout page', async ({page}) => {
     const cartpage = new CartPage(page);
     await homepage.signupLoginButton.click();
     await expect(page.locator('#form > div > div > div:nth-child(3) > div > h2')).toHaveText('New User Signup!');
-    await loginpage.namePlaceholder.fill('Mima335');
-    await loginpage.emailForSignupPlaceholder.fill('mima.doe335@gmail.com');
+    await loginpage.namePlaceholder.fill('Mima3235');
+    await loginpage.emailForSignupPlaceholder.fill('mima.doe3235@gmail.com');
     await loginpage.signupButton.click();
     await expect(page.getByText('Enter Account Information')).toBeVisible();
     await signuppage.mrsButton.check();

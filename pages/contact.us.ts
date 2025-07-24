@@ -19,6 +19,6 @@ constructor (page: Page){
     this.messagePlaceholder = page.getByPlaceholder('Your Message Here');
     this.chooseFile = page.locator('[name="upload_file"]');
     this.submitButton = page.locator('[name="submit"]');
-    this.homeButton = page.locator('#form-section > a > span');
+    this.homeButton = page.getByText(' Home');
 
 }};
