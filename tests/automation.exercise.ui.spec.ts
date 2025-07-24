@@ -558,3 +558,11 @@ test ('verify scroll up using arrow button and scroll down functionality', async
     await page.locator('#scrollUp').click();
     await expect(page.getByRole('heading',{name:'Full-Fledged practice website'})).toBeVisible();
 });
+
+test ('verify scroll up without arrow button and scroll down functionality', async ({page}) => {
+    const homepage = new Homepage(page);
+    await page.locator('footer').scrollIntoViewIfNeeded();
+    await expect(page.getByText('Subscription')).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(page.getByRole('heading',{name:'Full-Fledged practice website'})).toBeVisible();
+});
