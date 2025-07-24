@@ -550,3 +550,11 @@ test ('Download invoice after purchase order', async ({page}) => {
     await homepage.deleteAccountButton.click();
     await expect (page.getByText('Account Deleted!')).toBeVisible();
 });
+
+test ('verify scroll up using arrow button and scroll down functionality', async ({page}) => {
+    const homepage = new Homepage(page);
+    await page.locator('footer').scrollIntoViewIfNeeded();
+    await expect(page.getByText('Subscription')).toBeVisible();
+    await page.locator('#scrollUp').click();
+    await expect(page.getByRole('heading',{name:'Full-Fledged practice website'})).toBeVisible();
+});
