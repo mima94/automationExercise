@@ -16,7 +16,7 @@ test('POST /api/productsList - should return that method is not supported', asyn
 });
 
 test('GET /api/brandList - should return all brands list', async ({ request }) => {
-    const response = await request.get('/api/brandList');
+    const response = await request.get('/api/brandsList');
     const data = await response.json();
     expect(response.status()).toBe(200);
     expect(data).toHaveProperty('brands');
