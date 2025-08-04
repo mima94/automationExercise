@@ -30,3 +30,13 @@ test('PUT /api/brandsList - should return that request method is not supported',
     expect(text).toContain('This request method is not supported.');
 });
 
+test('POST /api/searchProduct - should return searched product list', async ({ request }) => {
+    const response = await request.post('/api/searchProduct', {
+        form: {
+            search_product: 'top'
+        }
+    });
+    const data = await response.json();
+    expect(response.status()).toBe(200);
+    expect(data).toHaveProperty('products'); 
+});
