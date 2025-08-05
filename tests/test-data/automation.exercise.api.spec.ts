@@ -40,3 +40,11 @@ test('POST /api/searchProduct - should return searched product list', async ({ r
     expect(response.status()).toBe(200);
     expect(data).toHaveProperty('products'); 
 });
+
+test('POST /api/searchProduct - should return bad request', async ({ request }) => {
+    const response = await request.post('/api/searchProduct');
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('Bad request, search_product parameter is missing in POST request.'); 
+});
+
