@@ -29,7 +29,7 @@ test('PUT /api/brandsList - should return that request method is not supported',
     expect(response.status()).toBe(200);
     expect(text).toContain('This request method is not supported.');
 });
-
+    
 test('POST /api/searchProduct - should return searched product list', async ({ request }) => {
     const response = await request.post('/api/searchProduct', {
         form: {
@@ -48,3 +48,14 @@ test('POST /api/searchProduct - should return bad request', async ({ request }) 
     expect(text).toContain('Bad request, search_product parameter is missing in POST request.'); 
 });
 
+test('POST /api/verifyLogin - should return response code 200, and that user exist', async ({ request }) => {
+    const response = await request.post('/api/verifyLogin', {
+        form: {
+            email: 'aladinprimer@gmail.com',
+            password: 'lampa'
+        }
+    });
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('User exists!'); 
+});
