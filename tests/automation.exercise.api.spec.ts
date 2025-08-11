@@ -71,3 +71,9 @@ test('POST /api/verifyLogin - should return response code 400, and bad request',
     expect(text).toContain('Bad request, email or password parameter is missing in POST request.'); 
 });
 
+test('DELETE /api/verifyLogin - should return 405, method not supported', async ({ request }) => {
+    const response = await request.delete('/api/verifyLogin');
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('This request method is not supported.'); 
+});
