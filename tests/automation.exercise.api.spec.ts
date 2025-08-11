@@ -60,3 +60,14 @@ test('POST /api/verifyLogin - should return response code 200, and that user exi
     expect(text).toContain('User exists!'); 
 });
 
+test('POST /api/verifyLogin - should return response code 400, and bad request', async ({ request }) => {
+    const response = await request.post('/api/verifyLogin', {
+        form: {
+            password: 'lampa'
+        }
+    });
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('Bad request, email or password parameter is missing in POST request.'); 
+});
+
