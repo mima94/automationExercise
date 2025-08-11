@@ -59,3 +59,4 @@ test('POST /api/verifyLogin - should return response code 200, and that user exi
     expect(response.status()).toBe(200);
     expect(text).toContain('User exists!'); 
 });
+
