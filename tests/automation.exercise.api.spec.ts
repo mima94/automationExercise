@@ -77,3 +77,15 @@ test('DELETE /api/verifyLogin - should return 405, method not supported', async 
     expect(response.status()).toBe(200);
     expect(text).toContain('This request method is not supported.'); 
 });
+
+test('POST /api/verifyLogin - should return response code 404, and that user is not found', async ({ request }) => {
+    const response = await request.post('/api/verifyLogin', {
+        form: {
+            email: 'uyguyrgiu@gmail.com',
+            password: 'kdjurfgn'
+        }
+    });
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('User not found!'); 
+});
