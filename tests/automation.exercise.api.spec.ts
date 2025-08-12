@@ -156,3 +156,16 @@ test('DELETE /api/deleteAccount - should return response code 200, and delete a 
     expect(text).toContain('Account deleted!'); 
 }); //zavisi od prethodnog testa za kreiranje usera
 
+test('GET /api/getUserDetailByEmail - should return response code 200, and user detail in json', async ({ request }) => {
+    const response = await request.get('/api/getUserDetailByEmail', {
+        params: {
+            email: 'aladinprimer@gmail.com'
+        }
+    });
+    const data = await response.json();
+    expect(response.status()).toBe(200);
+    expect(data).toHaveProperty('user');
+    expect(data.user).toHaveProperty('email','aladinprimer@gmail.com');
+}); 
+
+//jedini problem kod testova kod kojih pise da treba da vrati 404, 405 itd, sajt ima problem da vraca uvek 200(greska do njih), pa zato u testovima svuda stoji expected value 200
