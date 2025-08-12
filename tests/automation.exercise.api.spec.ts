@@ -89,3 +89,43 @@ test('POST /api/verifyLogin - should return response code 404, and that user is 
     expect(response.status()).toBe(200);
     expect(text).toContain('User not found!'); 
 });
+
+test('POST /api/createAccount - should return response code 200, and that user is created', async ({ request }) => {
+    const response = await request.post('/api/createAccount', {
+        form: {
+            name: 'Kobac',
+            email: 'kobac23@gmail.com',
+            password: 'kobacsifra',
+            title: 'Mr',
+            birth_date: '20',
+            birth_month: '10',
+            birth_year: '1994',
+            firstname: 'Kobac',
+            lastname: 'Vrabac',
+            company: 'Ptice',
+            address1: 'drvo',
+            address2: 'zbun',
+            country: 'Serbia',
+            zipcode: '23000',
+            state: 'Serbia',
+            city: 'Zrenjanin',
+            mobile_number: '0698887772'
+        }
+    });
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('User created!'); 
+});
+
+test('DELETE /api/deleteAccount - should return response code 200, and delete a user', async ({ request }) => {
+    const response = await request.delete('/api/deleteAccount', {
+        form: {
+            email: 'kobac23@gmail.com',
+            password: 'kobacsifra'
+        }
+    });
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('Account deleted!'); 
+}); //zavisi od prethodnog testa za kreiranje usera
+
