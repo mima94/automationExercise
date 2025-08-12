@@ -256,8 +256,8 @@ test ('Place order: Register before checkout', async ({page}) => {
     const paymentpage = new Paymentpage(page);
     await homepage.signupLoginButton.click();
     await expect(page.locator('#form > div > div > div:nth-child(3) > div > h2')).toHaveText('New User Signup!');
-    await loginpage.namePlaceholder.fill('Mima53');
-    await loginpage.emailForSignupPlaceholder.fill('mima.doe563@gmail.com');
+    await loginpage.namePlaceholder.fill('Mima53222');
+    await loginpage.emailForSignupPlaceholder.fill('mima.doe562223@gmail.com');
     await loginpage.signupButton.click();
     await expect(page.getByText('Enter Account Information')).toBeVisible();
     await signuppage.mrsButton.check();
