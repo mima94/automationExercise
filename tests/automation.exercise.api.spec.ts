@@ -117,6 +117,33 @@ test('POST /api/createAccount - should return response code 200, and that user i
     expect(text).toContain('User created!'); 
 });
 
+test('PUT /api/updateAccount - should return response code 200, and that user is updated', async ({ request }) => {
+    const response = await request.put('/api/updateAccount', {
+        form: {
+            name: 'Kobac',
+            email: 'kobac23@gmail.com',
+            password: 'kobacsifra',
+            title: 'Mr',
+            birth_date: '20',
+            birth_month: '10',
+            birth_year: '1994',
+            firstname: 'Kobac',
+            lastname: 'Vrabac',
+            company: 'Ptice selice',
+            address1: 'drvo',
+            address2: 'zbun',
+            country: 'Serbia',
+            zipcode: '23000',
+            state: 'Serbia',
+            city: 'Zrenjanin',
+            mobile_number: '0698887772'
+        }
+    });
+    const text = await response.text();
+    expect(response.status()).toBe(200);
+    expect(text).toContain('User updated!'); 
+}); //zavisi od prethodnog testa za kreiranje usera
+
 test('DELETE /api/deleteAccount - should return response code 200, and delete a user', async ({ request }) => {
     const response = await request.delete('/api/deleteAccount', {
         form: {
